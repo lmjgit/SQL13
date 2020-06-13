@@ -1,0 +1,58 @@
+信息系统与数据库技术练习12答题卡
+
+班级：     信管一班	
+姓名：     李明杰
+学号：     20190307130
+
+注：请将答案放置在序号下方。*/
+
+（一）
+1.
+
+USE PROJECT
+
+2.
+CREATE INDEX ix_project
+ON Project(Pname DESC)
+
+
+3.
+CREATE INDEX ix_date
+ON Employee(Esex DESC,WorkDate ASC)
+
+
+
+4.
+CREATE UNIQUE INDEX ix_date
+ON Sale(Pid,SYear,SMonth)
+
+
+5.
+CREATE VIEW v_wages
+WITH SCHEMABINDING
+AS 
+SELECT b.Did,Dname,B.Eid,Ename,WorkDate,C.Pid,Pname,Wages
+FROM dbo.Department A JOIN dbo.Employee B JOIN dbo.EP JOIN dbo.PROJECT C
+ON C.Pid=EP.Pid
+ON EP.Eid=B.Eid
+ON A.Did=B.Did
+
+
+6.
+CREATE UNIQUE CLUSTERED INDEX ix_wagex
+ON v_wages(Eid ASC,Pid DESC)
+
+7.
+EXEC sp_helpindex Employee
+
+8.
+EXEC sp_rename 'v_wages.id_ix_workDate',ix_Date
+
+9.
+EXEC SP_HELPINDEX v_wages
+
+10.
+DROP INDEX Project ON ix_project
+
+
+11.ALTER INDEX ix_sale ON Sale REORGANIZE
